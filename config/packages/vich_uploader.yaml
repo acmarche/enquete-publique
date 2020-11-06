@@ -1,0 +1,6 @@
+vich_uploader:
+    mappings:
+        enquete_publique:
+            uri_prefix: /files/enquete_publiques
+            upload_destination: '%kernel.project_dir%/public/files/enquete_publiques'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

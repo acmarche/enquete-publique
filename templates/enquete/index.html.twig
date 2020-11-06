@@ -1,0 +1,36 @@
+{% extends '@AcMarcheEnquetePublique/layout.html.twig' %}
+
+{% block body %}
+    <div class="page-header">
+        <h3>Liste des statuts</h3>
+    </div>
+    {% if is_granted('ROLE_PATRIMOINE_ADMIN') %}
+
+        <a href="{{ path('enquete_publique_statut_new') }}" class="btn btn-primary" role="button"><i
+                    class="glyphicon glyphicon-plus"></i> Ajouter</a>
+        <br/><br/>
+
+    {% endif %}
+
+    <table class='table table-bordered table-hover'>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>EnquetePublique</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for statut in statuts %}
+            <tr>
+                <td>
+                    <a href="{{ path('enquete_publique_statut_show', { 'id': statut.id }) }}">
+                        {{ statut }}
+                    </a>
+                </td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

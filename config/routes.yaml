@@ -1,0 +1,3 @@
+enquete_publique:
+    resource: "../../src/AcMarche/EnquetePublique/src/Controller/"
+    type:     annotation
