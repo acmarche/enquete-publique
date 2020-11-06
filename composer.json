@@ -1,6 +1,6 @@
 {
-  "name": "acmarche/enquete_publique",
-  "description": "Liste des enquete_publiques communales",
+  "name": "acmarche/enquete-publique",
+  "description": "Liste des enquete publiques communales",
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [

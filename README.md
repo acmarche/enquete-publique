@@ -1,2 +1,2 @@
-Gestion des enquete_publiques
+Gestion des enquete publiques
 ------------------

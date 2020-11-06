@@ -4,7 +4,7 @@
 
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h3>{{ statut }}</h3>
+            <h3>{{ enquete }}</h3>
         </div>
         <div class="card-body">
 
@@ -18,8 +18,9 @@
 
             {{ form_end(form) }}
 
-
-            <a href="{{ path('enquete_publique_statut_show',{'id': statut.id}) }}" class="mt-4">
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('enquete_show',{'id': enquete.id}) }}" class="mt-4">
                 <i class="fas fa-long-arrow-alt-left"></i> Annuler
             </a>
         </div>

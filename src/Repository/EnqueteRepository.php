@@ -21,11 +21,11 @@ class EnqueteRepository extends ServiceEntityRepository
 
     public function findAllSorted()
     {
-        $qb = $this->createQueryBuilder('statut');
+        $qb = $this->createQueryBuilder('enquete');
 
         return
             $qb
-                ->addOrderBy('statut.nom', 'ASC')
+                ->addOrderBy('enquete.nom', 'ASC')
                 ->getQuery()
                 ->getResult();
     }

@@ -3,14 +3,15 @@
 {% block body -%}
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h3>{{ statut }}</h3>
+            <h3>{{ enquete }}</h3>
         </div>
         <div class="card-body">
 
-            {% include '@EnquetePublique/statut/_actions.html.twig' %}
+            {% include '@EnquetePublique/enquete/_actions.html.twig' %}
 
             <br/><br/>
 
+            {% include '@EnquetePublique/enquete/_delete.html.twig' %}
         </div>
     </div>
 {% endblock %}

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/enquete")
- * @IsGranted("ROLE_PATRIMOINE_ADMIN")
+ * @IsGranted("ROLE_ENQUETE_ADMIN")
  */
 class EnqueteController extends AbstractController
 {
@@ -50,7 +50,6 @@ class EnqueteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->enqueteRepository->persist($enquete);
             $this->enqueteRepository->flush();
 
@@ -89,7 +88,6 @@ class EnqueteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->enqueteRepository->flush();
-
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }

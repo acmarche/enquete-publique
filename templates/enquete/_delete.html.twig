@@ -10,12 +10,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                Supprimer {{ statut }} ?
+                Supprimer {{ enquete }} ?
             </div>
             <div class="modal-footer">
-                <form method="post" action="{{ path('enquete_publique_statut_delete', {'id': statut.id}) }}">
+                <form method="post" action="{{ path('enquete_delete', {'id': enquete.id}) }}">
                     <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ statut.id) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ enquete.id) }}">
                     <button type="button" class="btn btn-secondary"
                             data-dismiss="modal">Annuler
                     </button>

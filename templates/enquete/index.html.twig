@@ -2,12 +2,12 @@
 
 {% block body %}
     <div class="page-header">
-        <h3>Liste des statuts</h3>
+        <h3>Liste des enquêtes publiques</h3>
     </div>
-    {% if is_granted('ROLE_PATRIMOINE_ADMIN') %}
+    {% if is_granted('ROLE_ENQUETE_ADMIN') %}
 
-        <a href="{{ path('enquete_publique_statut_new') }}" class="btn btn-primary" role="button"><i
-                    class="glyphicon glyphicon-plus"></i> Ajouter</a>
+        <a href="{{ path('enquete_new') }}" class="btn btn-primary" role="button"><i
+                    class="fas fa-plus"></i> Ajouter</a>
         <br/><br/>
 
     {% endif %}
@@ -20,11 +20,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for statut in statuts %}
+        {% for enquete in enquetes %}
             <tr>
                 <td>
-                    <a href="{{ path('enquete_publique_statut_show', { 'id': statut.id }) }}">
-                        {{ statut }}
+                    <a href="{{ path('enquete_show', { 'id': enquete.id }) }}">
+                        {{ enquete }}
                     </a>
                 </td>
                 <td></td>
