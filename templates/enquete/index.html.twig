@@ -8,7 +8,8 @@
     <table class='table table-bordered table-hover'>
         <thead>
         <tr>
-            <th>Nom</th>
+            <th>Objet</th>
+            <th>Demandeur</th>
             <th>Localité</th>
         </tr>
         </thead>
@@ -17,7 +18,12 @@
             <tr>
                 <td>
                     <a href="{{ path('enquete_show', { 'id': enquete.id }) }}">
-                        {{ enquete }}
+                        {{ enquete.categorie }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('enquete_show', { 'id': enquete.id }) }}">
+                        {{ enquete.demandeur }}
                     </a>
                 </td>
                 <td> {{ enquete.localite }}</td>
