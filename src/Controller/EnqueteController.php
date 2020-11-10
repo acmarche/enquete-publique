@@ -49,6 +49,7 @@ class EnqueteController extends AbstractController
     public function new(Request $request): Response
     {
         $enquete = new Enquete();
+
         $form = $this->createForm(EnqueteType::class, $enquete);
         $form->handleRequest($request);
 

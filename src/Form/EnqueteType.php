@@ -22,6 +22,8 @@ class EnqueteType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Categorie::class,
+                    'placeholder' => 'Sélectionnez',
+                    'label' => 'Objet de la demande',
                 ]
             )
             ->add('demandeur')

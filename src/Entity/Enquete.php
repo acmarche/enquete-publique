@@ -58,6 +58,9 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->code_postal = 6900;
+        $this->date_debut = new \DateTime();
+        $this->date_fin = new \DateTime('+1 month');
     }
 
     public function __toString()
