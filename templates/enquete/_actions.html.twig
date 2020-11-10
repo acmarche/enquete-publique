@@ -2,6 +2,12 @@
    class="btn btn-primary"><i
             class="far fa-edit"></i> Editer</a>
 
+<a href="{{ path('enquete_localisation_edit', { 'id': enquete.id }) }}" role="button"
+   class="btn btn-primary"> <i class="fas fa-map-marked-alt"></i> Localisation</a>
+
+<a href="{{ path('enquete_document_new', { 'id': enquete.id }) }}" role="button"
+   class="btn btn-primary"><i class="fas fa-folder-plus"></i> Ajouter un document</a>
+
 <a href="{{ path('enquete_index') }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
     Retour à la Liste</a>
 
@@ -9,4 +15,4 @@
     <i class="fas fa-trash"></i> Supprimer
 </button>
 
-<br /><br />
+<br/><br/>

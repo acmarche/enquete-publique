@@ -3,13 +3,43 @@
 {% block body -%}
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h3>{{ enquete }}</h3>
+            <h3>{{ enquete.categorie }} à {{ enquete.localite }}</h3>
         </div>
         <div class="card-body">
 
             {% include '@EnquetePublique/enquete/_actions.html.twig' %}
 
             <br/><br/>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Demandeur:</th>
+                    <td>{{ enquete.demandeur }}</td>
+                </tr>
+                <tr>
+                    <th>Publié</th>
+                    <td>
+                        Du {{ enquete.dateDebut|format_datetime('full', 'none') }}
+                        au {{ enquete.dateFin|format_datetime('full', 'none') }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Avis (fiche)</th>
+                    <td>
+                        <a href="{{ vich_uploader_asset(enquete, 'avisFile') }}" target="_blank">
+                            <i class="fas fa-download"></i> Télécharger
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            {% include '@EnquetePublique/enquete/_documents.html.twig' %}
+
+            <h4 class="text-success">Situation sur la carte</h4>
+            <i class="fas fa-map-marked-alt"></i>
+
+            {{ enquete.rue }} {{ enquete.numero }} <br/>
+            {{ enquete.codePostal }} {{ enquete.localite }}
+            {% include '@EnquetePublique/localisation/_openstreetmap.html.twig' %}
 
             {% include '@EnquetePublique/enquete/_delete.html.twig' %}
         </div>

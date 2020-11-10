@@ -2,11 +2,11 @@
 
 {% block body %}
     <div class="page-header">
-        <h3>Liste des enquêtes publiques</h3>
+        <h3>Liste des catégories</h3>
     </div>
     {% if is_granted('ROLE_ENQUETE_ADMIN') %}
 
-        <a href="{{ path('enquete_new') }}" class="btn btn-primary" role="button"><i
+        <a href="{{ path('enquete_categorie_new') }}" class="btn btn-primary" role="button"><i
                     class="fas fa-plus"></i> Ajouter</a>
         <br/><br/>
 
@@ -16,18 +16,18 @@
         <thead>
         <tr>
             <th>Nom</th>
-            <th>Localité</th>
+            <th>EnquetePublique</th>
         </tr>
         </thead>
         <tbody>
-        {% for enquete in enquetes %}
+        {% for categorie in categories %}
             <tr>
                 <td>
-                    <a href="{{ path('enquete_show', { 'id': enquete.id }) }}">
-                        {{ enquete }}
+                    <a href="{{ path('enquete_categorie_show', { 'id': categorie.id }) }}">
+                        {{ categorie }}
                     </a>
                 </td>
-                <td> {{ enquete.localite }}</td>
+                <td></td>
             </tr>
         {% endfor %}
         </tbody>

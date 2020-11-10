@@ -1,0 +1,36 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_row(form.categorie) }}
+<div class="row">
+    <div class="col-lg-6">
+        {{ form_row(form.avisFile) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.demandeur) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.date_debut) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.date_fin) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        {{ form_row(form.rue) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.numero) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.code_postal) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.localite) }}
+    </div>
+</div>
+<button class="btn btn-primary mr-1 mb-2" type="submit">
+    <i class="far fa-save" aria-hidden="true"></i> Sauvegarder
+</button>
+
+{{ form_end(form) }}

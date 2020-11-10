@@ -7,17 +7,7 @@
             <h3>{{ enquete }}</h3>
         </div>
         <div class="card-body">
-
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            {{ form_widget(form) }}
-
-            <button class="btn btn-primary mr-1 mb-2" type="submit"><i class="far fa-save" aria-hidden="true"></i>
-                Sauvegarder
-            </button>
-
-            {{ form_end(form) }}
-
+            {% include '@AcMarcheEnquetePublique/enquete/_form.html.twig' %}
         </div>
         <div class="card-footer">
             <a href="{{ path('enquete_show',{'id': enquete.id}) }}" class="mt-4">

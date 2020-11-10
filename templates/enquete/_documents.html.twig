@@ -1,0 +1,23 @@
+<h4 class="text-success">Documents</h4>
+{% if enquete.documents | length > 0 %}
+    <table class='table table-bordered table-hover'>
+        {% for document in enquete.documents %}
+            <tr>
+
+                <td>
+                    <a href="{{ path('enquete_document_show', { 'id': document.id }) }}">
+                        {{ document.name }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ vich_uploader_asset(document, 'file') }}">
+                        <i class="fas fa-download"></i>
+                    </a>
+                  h  {{ document.mimeType }}h
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="text-warning">Aucun document</p>
+{% endif %}

@@ -2,6 +2,9 @@
 
 namespace AcMarche\EnquetePublique\Controller;
 
+use AcMarche\EnquetePublique\Enquete\Message\EnqueteCreated;
+use AcMarche\EnquetePublique\Enquete\Message\EnqueteDeleted;
+use AcMarche\EnquetePublique\Enquete\Message\EnqueteUpdated;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Form\EnqueteType;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
@@ -52,6 +55,7 @@ class EnqueteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->enqueteRepository->persist($enquete);
             $this->enqueteRepository->flush();
+            $this->dispatchMessage(new EnqueteCreated($enquete->getId()));
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }
@@ -83,11 +87,13 @@ class EnqueteController extends AbstractController
      */
     public function edit(Request $request, Enquete $enquete): Response
     {
+        $oldRue = $enquete->getRue();
         $form = $this->createForm(EnqueteType::class, $enquete);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->enqueteRepository->flush();
+            $this->dispatchMessage(new EnqueteUpdated($enquete->getId(), $oldRue));
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }
@@ -109,6 +115,7 @@ class EnqueteController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$enquete->getId(), $request->request->get('_token'))) {
             $this->enqueteRepository->remove($enquete);
             $this->enqueteRepository->flush();
+            $this->dispatchMessage(new EnqueteDeleted($enquete->getId()));
         }
 
         return $this->redirectToRoute('enquete_index');
