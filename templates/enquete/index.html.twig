@@ -4,13 +4,6 @@
     <div class="page-header">
         <h3>Liste des enquêtes publiques</h3>
     </div>
-    {% if is_granted('ROLE_ENQUETE_ADMIN') %}
-
-        <a href="{{ path('enquete_new') }}" class="btn btn-primary" role="button"><i
-                    class="fas fa-plus"></i> Ajouter</a>
-        <br/><br/>
-
-    {% endif %}
 
     <table class='table table-bordered table-hover'>
         <thead>

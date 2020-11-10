@@ -1,9 +1,12 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ path('enquete_index') }}"><i class="fas fa-list"></i> Enquete Publiques</a>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('enquete_new') }}"><i class="fas fa-plus"></i> Ajouter une enquete_publique</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('enquete_categorie_index') }}"><i class="fas fa-list"></i> Les catégories</a>
-</li>
+{% if is_granted('ROLE_ENQUETE_ADMIN') %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('enquete_new') }}"><i class="fas fa-plus"></i> Ajouter une enquête
+            publique</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('enquete_categorie_index') }}"><i class="fas fa-list"></i> Les catégories</a>
+    </li>
+{% endif %}
