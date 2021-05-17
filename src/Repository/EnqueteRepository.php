@@ -19,12 +19,35 @@ class EnqueteRepository extends ServiceEntityRepository
         parent::__construct($registry, Enquete::class);
     }
 
-    public function findAllSorted()
+    /**
+     * @return array|Enquete[]
+     */
+    public function findAllPublished()
     {
-        $qb = $this->createQueryBuilder('enquete');
+        $qb = $this->createQueryBuilder('enquete')
+            ->leftJoin('enquete.documents', 'documents', 'WITH')
+            ->leftJoin('enquete.categorie', 'categorie', 'WITH');
+
+        $today = new \DateTime();
+
+        $qb->andWhere('enquete.date_debut >= :date AND enquete.date_fin > :date ')
+            ->setParameter('date', $today->format('Y-m-d'));
 
         return
             $qb
+                ->addOrderBy('enquete.date_debut', 'ASC')
+                ->getQuery()
+                ->getResult();
+
+    }
+
+    /**
+     * @return array|Enquete[]
+     */
+    public function findAllSorted(): array
+    {
+        return
+            $this->createQueryBuilder('enquete')
                 ->addOrderBy('enquete.nom', 'ASC')
                 ->getQuery()
                 ->getResult();
