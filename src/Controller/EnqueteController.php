@@ -114,9 +114,10 @@ class EnqueteController extends AbstractController
     public function delete(Request $request, Enquete $enquete): Response
     {
         if ($this->isCsrfTokenValid('delete'.$enquete->getId(), $request->request->get('_token'))) {
+            $id = $enquete->getId();
             $this->enqueteRepository->remove($enquete);
             $this->enqueteRepository->flush();
-            $this->dispatchMessage(new EnqueteDeleted($enquete->getId()));
+            $this->dispatchMessage(new EnqueteDeleted($id));
         }
 
         return $this->redirectToRoute('enquete_index');
