@@ -26,7 +26,7 @@ class Document implements TimestampableInterface
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
      */
@@ -132,7 +132,7 @@ class Document implements TimestampableInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -156,7 +156,7 @@ class Document implements TimestampableInterface
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
