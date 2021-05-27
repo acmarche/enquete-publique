@@ -4,10 +4,8 @@
 namespace AcMarche\EnquetePublique\Controller;
 
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,13 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiController extends AbstractController
 {
     /**
-     * @var \AcMarche\EnquetePublique\Repository\EnqueteRepository
+     * @var EnqueteRepository
      */
     private $enqueteRepository;
 
     public function __construct(EnqueteRepository $enqueteRepository)
     {
-
         $this->enqueteRepository = $enqueteRepository;
     }
 
@@ -33,12 +30,13 @@ class ApiController extends AbstractController
      */
     public function index()
     {
+        $url = 'https://extranet.marche.be/files/enquete_publiques/avis/';
         $enquetes = $this->enqueteRepository->findAllPublished();
         $data = [];
         foreach ($enquetes as $enquete) {
             $data1 = $documents = [];
             $data1['id'] = $enquete->getId();
-            $data1['avis'] = $enquete->getAvisName();
+            $data1['avis'] = $url.$enquete->getAvisName();
             $data1['categorie'] = $enquete->getCategorie()->getNom();
             $data1['description'] = $enquete->getDescription();
             $data1['demandeur'] = $enquete->getDemandeur();
@@ -58,7 +56,7 @@ class ApiController extends AbstractController
             $data[] = $data1;
         }
 
-     //   dump($data);
+        //   dump($data);
         return new JsonResponse($data);
 
     }
