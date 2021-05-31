@@ -33,6 +33,7 @@ class ApiController extends AbstractController
         $url = 'https://extranet.marche.be/files/enquete_publiques/avis/';
         $enquetes = $this->enqueteRepository->findAllPublished();
         $data = [];
+
         foreach ($enquetes as $enquete) {
             $data1 = $documents = [];
             $data1['id'] = $enquete->getId();
@@ -56,7 +57,6 @@ class ApiController extends AbstractController
             $data[] = $data1;
         }
 
-        //   dump($data);
         return new JsonResponse($data);
 
     }
