@@ -26,15 +26,6 @@ class EnqueteType extends AbstractType
                     'attr' => ['rows' => 5],
                 ]
             )
-            ->add(
-                'categorie',
-                EntityType::class,
-                [
-                    'class' => Categorie::class,
-                    'placeholder' => 'Sélectionnez',
-                    'label' => 'Objet de la demande',
-                ]
-            )
             ->add('demandeur')
             ->add(
                 'date_debut',
