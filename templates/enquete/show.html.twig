@@ -3,7 +3,7 @@
 {% block body -%}
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h3>{{ enquete.categorie }} à {{ enquete.localite }}</h3>
+            <h3>{{ enquete.intitule }}</h3>
         </div>
         <div class="card-body">
 
@@ -33,6 +33,10 @@
             </table>
 
             {% include '@EnquetePublique/enquete/_documents.html.twig' %}
+
+            <p>
+                {{ enquete.description|nl2br }}
+            </p>
 
             <h4 class="text-success">Situation sur la carte</h4>
             <i class="fas fa-map-marked-alt"></i>

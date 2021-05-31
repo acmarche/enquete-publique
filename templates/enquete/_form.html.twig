@@ -1,6 +1,6 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
-{{ form_row(form.categorie) }}
+{{ form_row(form.intitule) }}
 <div class="row">
     <div class="col-lg-6">
         {{ form_row(form.avisFile) }}
@@ -29,6 +29,7 @@
         {{ form_row(form.localite) }}
     </div>
 </div>
+{{ form_row(form.description) }}
 <button class="btn btn-primary mr-1 mb-2" type="submit">
     <i class="far fa-save" aria-hidden="true"></i> Sauvegarder
 </button>
