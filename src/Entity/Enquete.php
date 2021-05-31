@@ -35,13 +35,19 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
 
     /**
      * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $intitule;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private $demandeur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="enquetes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $categorie;
 
@@ -135,6 +141,18 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
                 $document->setEnquete(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIntitule(): ?string
+    {
+        return $this->intitule;
+    }
+
+    public function setIntitule(string $intitule): self
+    {
+        $this->intitule = $intitule;
 
         return $this;
     }

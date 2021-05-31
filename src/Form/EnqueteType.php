@@ -17,6 +17,7 @@ class EnqueteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('intitule')
             ->add(
                 'categorie',
                 EntityType::class,
