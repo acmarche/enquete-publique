@@ -24,6 +24,7 @@ class EnqueteType extends AbstractType
                 TextareaType::class,
                 [
                     'attr' => ['rows' => 5],
+                    'required' => false,
                 ]
             )
             ->add('demandeur')
