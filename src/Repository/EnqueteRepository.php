@@ -30,7 +30,7 @@ class EnqueteRepository extends ServiceEntityRepository
 
         $today = new \DateTime();
 
-        $qb->andWhere('enquete.date_fin > :date ')
+        $qb->andWhere('enquete.date_fin > :date AND enquete.date_debut <= :date ')
             ->setParameter('date', $today->format('Y-m-d'));
 
         return
