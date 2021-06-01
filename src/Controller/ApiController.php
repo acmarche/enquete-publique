@@ -39,7 +39,11 @@ class ApiController extends AbstractController
             $data1['id'] = $enquete->getId();
             $data1['avis'] = $url.$enquete->getAvisName();
             $data1['intitule'] = $enquete->getIntitule();
-            $data1['categorie'] = $enquete->getCategorie()->getNom();
+            $nomCategorie = '';
+            if ($categorie = $enquete->getCategorie()) {
+                $nomCategorie = $categorie->getNom();
+            }
+            $data1['categorie'] = $nomCategorie;
             $data1['description'] = $enquete->getDescription();
             $data1['demandeur'] = $enquete->getDemandeur();
             $data1['date_fin'] = $enquete->getDateFin()->format('Y-m-d');
