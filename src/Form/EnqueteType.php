@@ -50,7 +50,7 @@ class EnqueteType extends AbstractType
                 [
                     'label' => 'Affiche avis',
                     'help' => 'Uniquement pdf ou images',
-                    'required' => false,
+                    'required' => true,
                 ]
             )
             ->add(
