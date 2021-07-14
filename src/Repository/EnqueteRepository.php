@@ -53,6 +53,15 @@ class EnqueteRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
+    public function findOrderByDate()
+    {
+        return
+            $this->createQueryBuilder('enquete')
+                ->addOrderBy('enquete.date_fin', 'DESC')
+                ->getQuery()
+                ->getResult();
+    }
+
     public function remove(Enquete $reduction)
     {
         $this->_em->remove($reduction);
@@ -62,7 +71,6 @@ class EnqueteRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
-
     public function persist(Enquete $reduction)
     {
         $this->_em->persist($reduction);

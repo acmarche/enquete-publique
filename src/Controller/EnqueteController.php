@@ -38,7 +38,7 @@ class EnqueteController extends AbstractController
         return $this->render(
             '@EnquetePublique/enquete/index.html.twig',
             [
-                'enquetes' => $this->enqueteRepository->findAll(),
+                'enquetes' => $this->enqueteRepository->findOrderByDate(),
             ]
         );
     }
