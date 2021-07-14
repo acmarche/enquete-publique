@@ -35,8 +35,9 @@
                 </td>
                 <td> {{ enquete.localite }}</td>
                 <td>
-                    Du {{ enquete.dateDebut|format_date('full') }}
-                    au {{ enquete.dateFin|format_date('full') }}
+                    Du {{ enquete.dateDebut|format_date('short') }}
+
+                    au {{ enquete.dateFin|format_date('short') }}
                 </td>
             </tr>
         {% endfor %}
