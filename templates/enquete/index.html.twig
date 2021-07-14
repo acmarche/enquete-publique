@@ -6,8 +6,9 @@
     </div>
 
     <div class="alert alert-info">
-        La liste des enquêtes est publiées sur sur le site :<br />
-        <a target="_blank" href="https://www.marche.be/administration/publications-communales/enquetes-publiques-urbanisme-commune-de-marche-en-famenne/?refresh=1">www.marche.be</a>
+        La liste des enquêtes est publiées sur sur le site :<br/>
+        <a target="_blank"
+           href="https://www.marche.be/administration/publications-communales/enquetes-publiques-urbanisme-commune-de-marche-en-famenne/?refresh=1">www.marche.be</a>
     </div>
 
     <table class='table table-bordered table-hover'>
@@ -16,6 +17,7 @@
             <th>Objet</th>
             <th>Demandeur</th>
             <th>Localité</th>
+            <th>Affichage</th>
         </tr>
         </thead>
         <tbody>
@@ -23,7 +25,7 @@
             <tr>
                 <td>
                     <a href="{{ path('enquete_show', { 'id': enquete.id }) }}">
-                        {{ enquete.intitule }}
+                        {{ enquete.intitule|u.truncate(140,...) }}
                     </a>
                 </td>
                 <td>
@@ -32,6 +34,10 @@
                     </a>
                 </td>
                 <td> {{ enquete.localite }}</td>
+                <td>
+                    Du {{ enquete.dateDebut|format_date('full') }}
+                    au {{ enquete.dateFin|format_date('full') }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
