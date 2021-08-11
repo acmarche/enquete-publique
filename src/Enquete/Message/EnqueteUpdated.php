@@ -4,11 +4,8 @@ namespace AcMarche\EnquetePublique\Enquete\Message;
 
 class EnqueteUpdated
 {
-    private $enqueteId;
-    /**
-     * @var string|null
-     */
-    private $oldRue;
+    private int $enqueteId;
+    private ?string $oldRue;
 
     public function __construct(int $enqueteId, ?string $oldRue)
     {

@@ -15,10 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ApiController extends AbstractController
 {
-    /**
-     * @var EnqueteRepository
-     */
-    private $enqueteRepository;
+    private EnqueteRepository $enqueteRepository;
 
     public function __construct(EnqueteRepository $enqueteRepository)
     {
@@ -28,7 +25,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/", name="enquete_publique_api")
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $url = 'https://extranet.marche.be/files/enquete_publiques/avis/';
         $enquetes = $this->enqueteRepository->findAllPublished();
@@ -40,7 +37,7 @@ class ApiController extends AbstractController
             $data1['avis'] = $url.$enquete->getAvisName();
             $data1['intitule'] = $enquete->getIntitule();
             $nomCategorie = '';
-            if ($categorie = $enquete->getCategorie()) {
+            if (($categorie = $enquete->getCategorie()) !== null) {
                 $nomCategorie = $categorie->getNom();
             }
             $data1['categorie'] = $nomCategorie;

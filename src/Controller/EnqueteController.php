@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteCreated;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteDeleted;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteUpdated;
@@ -20,10 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EnqueteController extends AbstractController
 {
-    /**
-     * @var EnqueteRepository
-     */
-    private $enqueteRepository;
+    private EnqueteRepository $enqueteRepository;
 
     public function __construct(EnqueteRepository $enqueteRepository)
     {

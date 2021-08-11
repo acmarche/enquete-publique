@@ -3,6 +3,7 @@
 
 namespace AcMarche\EnquetePublique\Location;
 
+use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -10,10 +11,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class LocationUpdater
 {
-    /**
-     * @var LocationInterface
-     */
-    private $location;
+    private LocationInterface $location;
 
     public function __construct(LocationInterface $location)
     {
@@ -23,12 +21,12 @@ class LocationUpdater
     /**
      * @param LocationAbleInterface $object
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function convertAddressToCoordinates(LocationAbleInterface $object): bool
     {
         if (!$object->getRue()) {
-            throw new \Exception('Aucune rue encodée, pas de données de géolocalisation');
+            throw new Exception('Aucune rue encodée, pas de données de géolocalisation');
         }
 
         try {
@@ -38,11 +36,11 @@ class LocationUpdater
             $tab = json_decode($response, true);
 
             if (is_array($tab) && count($tab) == 0) {
-                throw new \Exception('L\'adresse n\'a pas pu être convertie en latitude longitude:'.$response);
+                throw new Exception('L\'adresse n\'a pas pu être convertie en latitude longitude:'.$response);
             }
 
             if ($tab == false) {
-                throw new \Exception('Decode json error:'.$response);
+                throw new Exception('Decode json error:'.$response);
             }
 
             if (is_array($tab) && count($tab) > 0) {
@@ -50,20 +48,20 @@ class LocationUpdater
 
                 return true;
             } else {
-                throw new \Exception('Convertion en latitude longitude error:'.$response);
+                throw new Exception('Convertion en latitude longitude error:'.$response);
             }
         } catch (ClientExceptionInterface $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         } catch (RedirectionExceptionInterface $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         } catch (ServerExceptionInterface $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         } catch (TransportExceptionInterface $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
 
-    private function setLat(LocationAbleInterface $object, array $data)
+    private function setLat(LocationAbleInterface $object, array $data): void
     {
         $object->setLatitude($data[0]['lat']);
         $object->setLongitude($data[0]['lon']);

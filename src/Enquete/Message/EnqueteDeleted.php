@@ -4,7 +4,7 @@ namespace AcMarche\EnquetePublique\Enquete\Message;
 
 final class EnqueteDeleted
 {
-    private $enqueteId;
+    private int $enqueteId;
 
     public function __construct(int $enqueteId)
     {

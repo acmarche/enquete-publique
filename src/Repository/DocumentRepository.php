@@ -19,23 +19,23 @@ class DocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, Document::class);
     }
 
-    public function insert(Document $document)
+    public function insert(Document $document): void
     {
         $this->persist($document);
         $this->flush();
     }
 
-    public function persist(Document $document)
+    public function persist(Document $document): void
     {
         $this->_em->persist($document);
     }
 
-    public function remove(Document $document)
+    public function remove(Document $document): void
     {
         $this->_em->remove($document);
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->_em->flush();
     }

@@ -13,10 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LocalisationController extends AbstractController
 {
-    /**
-     * @var EnqueteRepository
-     */
-    private $enqueteRepository;
+    private EnqueteRepository $enqueteRepository;
 
     public function __construct(EnqueteRepository $enqueteRepository)
     {

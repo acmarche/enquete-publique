@@ -3,6 +3,7 @@
 
 namespace AcMarche\EnquetePublique\Entity;
 
+use DateTime;
 use AcMarche\EnquetePublique\Entity\Traits\AvisFileTrait;
 use AcMarche\EnquetePublique\Entity\Traits\DatesDiffusionTrait;
 use AcMarche\EnquetePublique\Entity\Traits\LocationTrait;
@@ -31,42 +32,40 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $intitule;
+    private ?string $intitule = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $demandeur;
+    private ?string $demandeur = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="enquetes")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $categorie;
+    private ?Categorie $categorie = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * @ORM\OneToMany(targetEntity="AcMarche\EnquetePublique\Entity\Document", mappedBy="enquete", cascade={"persist", "remove"})
      */
-    private $documents;
+    private Collection $documents;
 
     public function __construct()
     {
         $this->documents = new ArrayCollection();
         $this->code_postal = 6900;
-        $this->date_debut = new \DateTime();
-        $this->date_fin = new \DateTime('+1 month');
+        $this->date_debut = new DateTime();
+        $this->date_fin = new DateTime('+1 month');
     }
 
     public function __toString()
@@ -103,7 +102,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
         return $this;
     }
 
-    public function getDemandeur(): ?string
+    public function getDemandeur(): string
     {
         return $this->demandeur;
     }
@@ -118,7 +117,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
     /**
      * @return Collection|Document[]
      */
-    public function getDocuments(): Collection
+    public function getDocuments(): ArrayCollection
     {
         return $this->documents;
     }
@@ -135,17 +134,15 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
 
     public function removeDocument(Document $document): self
     {
-        if ($this->documents->removeElement($document)) {
-            // set the owning side to null (unless already changed)
-            if ($document->getEnquete() === $this) {
-                $document->setEnquete(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->documents->removeElement($document) && $document->getEnquete() === $this) {
+            $document->setEnquete(null);
         }
 
         return $this;
     }
 
-    public function getIntitule(): ?string
+    public function getIntitule(): string
     {
         return $this->intitule;
     }

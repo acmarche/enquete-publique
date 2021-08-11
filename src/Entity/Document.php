@@ -3,6 +3,8 @@
 
 namespace AcMarche\EnquetePublique\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -23,58 +25,51 @@ class Document implements TimestampableInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
-     * @var Enquete
      * @ORM\ManyToOne(targetEntity="AcMarche\EnquetePublique\Entity\Enquete", inversedBy="documents")
      */
-    protected $enquete;
+    protected ?Enquete $enquete;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="enquete_document", fileNameProperty="fileName", size="fileSize")
      *
-     * @var File|null
      * @Assert\File(
      *     maxSize = "16384k",
      *     mimeTypes = {"application/pdf", "application/x-pdf", "image/*"},
      *     mimeTypesMessage = "Uniquement des PDF ou images"
      * )
      */
-    private $file;
+    private ?File $file = null;
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
-    private $fileName;
+    private ?string $fileName = null;
 
     /**
      * @ORM\Column(type="integer")
-     *
-     * @var int|null
      */
-    private $fileSize;
+    private ?int $fileSize = null;
 
     /**
      * @ORM\Column(name="mime_type", type="string", nullable=true)
      */
-    protected $mimeType;
+    protected ?string $mimeType = null;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -83,7 +78,7 @@ class Document implements TimestampableInterface
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
+     * @param File|UploadedFile|null $file
      */
     public function setDocFile(?File $file = null): void
     {
@@ -92,7 +87,7 @@ class Document implements TimestampableInterface
         if (null !== $file) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
@@ -175,7 +170,7 @@ class Document implements TimestampableInterface
         return $this;
     }
 
-    public function getEnquete(): ?Enquete
+    public function getEnquete(): Enquete
     {
         return $this->enquete;
     }

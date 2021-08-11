@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Enquete\MessageHandler;
 
+use Exception;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteCreated;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Location\LocationUpdater;
@@ -11,15 +12,9 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 class EnqueteCreatedHandler implements MessageSubscriberInterface
 {
-    private $enqueteRepository;
-    /**
-     * @var FlashBagInterface
-     */
-    private $flashBag;
-    /**
-     * @var LocationUpdater
-     */
-    private $locationUpdater;
+    private EnqueteRepository $enqueteRepository;
+    private FlashBagInterface $flashBag;
+    private LocationUpdater $locationUpdater;
 
     public function __construct(
         EnqueteRepository $enqueteRepository,
@@ -39,11 +34,11 @@ class EnqueteCreatedHandler implements MessageSubscriberInterface
         $this->enqueteRepository->flush();
     }
 
-    private function setLocation(Enquete $enquete)
+    private function setLocation(Enquete $enquete): void
     {
         try {
             $this->locationUpdater->convertAddressToCoordinates($enquete);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->flashBag->add(
                 'danger',
                 $e->getMessage()

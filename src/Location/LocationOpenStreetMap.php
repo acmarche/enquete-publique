@@ -4,20 +4,18 @@
 namespace AcMarche\EnquetePublique\Location;
 
 
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LocationOpenStreetMap implements LocationInterface
 {
-    /**
-     * @var string
-     */
-    private $baseUrl;
-    /**
-     * @var HttpClientInterface
-     */
-    private $client;
+    private string $baseUrl;
+    private HttpClientInterface $client;
 
     public function __construct()
     {
@@ -28,12 +26,12 @@ class LocationOpenStreetMap implements LocationInterface
     /**
      * @param string $query
      * @return mixed
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function search(string $query)
+    public function search(string $query): string
     {
         $response = $this->client->request(
             'GET',

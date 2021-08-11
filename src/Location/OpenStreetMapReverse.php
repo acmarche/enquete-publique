@@ -2,6 +2,8 @@
 
 namespace AcMarche\EnquetePublique\Location;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Exception;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -12,19 +14,10 @@ use Symfony\Component\HttpClient\HttpClient;
  */
 class OpenStreetMapReverse implements LocationReverseInterface
 {
-    /**
-     * @var string
-     */
-    private $baseUrl;
-    /**
-     * @var \Symfony\Contracts\HttpClient\HttpClientInterface
-     */
-    private $client;
+    private string $baseUrl;
+    private HttpClientInterface $client;
 
-    /**
-     * @var array
-     */
-    private $result = [];
+    private array $result = [];
 
     public function __construct()
     {
@@ -36,7 +29,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
      * @param $latitude
      * @param $longitude
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function reverse($latitude, $longitude): array
     {
@@ -62,7 +55,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
 
             return $this->result;
         } catch (ClientException $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
 

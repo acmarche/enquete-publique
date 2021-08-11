@@ -18,18 +18,17 @@ class Categorie
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string")
      */
-    private $nom;
+    private ?string $nom = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Enquete::class, mappedBy="categorie", orphanRemoval=true)
      */
-    private $enquetes;
+    private Collection $enquetes;
 
     public function __construct()
     {
@@ -61,7 +60,7 @@ class Categorie
     /**
      * @return Collection|Enquete[]
      */
-    public function getEnquetes(): Collection
+    public function getEnquetes(): ArrayCollection
     {
         return $this->enquetes;
     }
@@ -78,11 +77,9 @@ class Categorie
 
     public function removeEnquete(Enquete $enquete): self
     {
-        if ($this->enquetes->removeElement($enquete)) {
-            // set the owning side to null (unless already changed)
-            if ($enquete->getCategorie() === $this) {
-                $enquete->setCategorie(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->enquetes->removeElement($enquete) && $enquete->getCategorie() === $this) {
+            $enquete->setCategorie(null);
         }
 
         return $this;

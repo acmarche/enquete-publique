@@ -1,12 +1,9 @@
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('enquete_index') }}"><i class="fas fa-list"></i> Enquete Publiques</a>
-</li>
-{% if is_granted('ROLE_ENQUETE_ADMIN') %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('enquete_new') }}"><i class="fas fa-plus"></i> Ajouter une enquête
-            publique</a>
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href="{{ path('enquete_index') }}" class="nav-link" aria-current="page">Enquete publique</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('enquete_categorie_index') }}"><i class="fas fa-list"></i> Les catégories</a>
-    </li>
-{% endif %}
+    {% if is_granted('ROLE_ENQUETE_ADMIN') %}
+        <li class="nav-item"><a href="{{ path('enquete_new') }}" class="nav-link">Ajouter</a></li>
+        <li class="nav-item"><a href="{{ path('enquete_categorie_index') }}" class="nav-link">Catégories</a></li>
+    <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link">{{ app.user }}</a></li>
+    {% endif %}
+</ul>

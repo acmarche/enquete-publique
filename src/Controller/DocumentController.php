@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\EnquetePublique\Entity\Document;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Form\DocumentEditType;
@@ -21,10 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DocumentController extends AbstractController
 {
-    /**
-     * @var DocumentRepository
-     */
-    private $documentRepository;
+    private DocumentRepository $documentRepository;
 
     public function __construct(DocumentRepository $documentRepository)
     {
@@ -36,7 +34,7 @@ class DocumentController extends AbstractController
      *
      * @Route("/new/{id}", name="enquete_document_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, Enquete $enquete)
+    public function new(Request $request, Enquete $enquete): Response
     {
         $document = new Document($enquete);
 
@@ -67,7 +65,7 @@ class DocumentController extends AbstractController
      *
      * @Route("/{id}", name="enquete_document_show", methods={"GET"})
      */
-    public function show(Document $document)
+    public function show(Document $document): Response
     {
         return $this->render(
             '@EnquetePublique/document/show.html.twig',
@@ -83,7 +81,7 @@ class DocumentController extends AbstractController
      *
      * @Route("/{id}/edit", name="enquete_document_edit", methods={"GET", "POST"})
      */
-    public function edit(Document $document, Request $request)
+    public function edit(Document $document, Request $request): Response
     {
         $editForm = $this->createForm(DocumentEditType::class, $document);
 

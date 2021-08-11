@@ -30,17 +30,17 @@ class CategorieRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function remove(Categorie $categorie)
+    public function remove(Categorie $categorie): void
     {
         $this->_em->remove($categorie);
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->_em->flush();
     }
 
-    public function persist(Categorie $categorie)
+    public function persist(Categorie $categorie): void
     {
         $this->_em->persist($categorie);
     }

@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\EnquetePublique\Entity\Categorie;
 use AcMarche\EnquetePublique\Form\CategorieType;
 use AcMarche\EnquetePublique\Repository\CategorieRepository;
@@ -17,10 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategorieController extends AbstractController
 {
-    /**
-     * @var CategorieRepository
-     */
-    private $categorieRepository;
+    private CategorieRepository $categorieRepository;
 
     public function __construct(CategorieRepository $categorieRepository)
     {

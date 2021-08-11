@@ -3,6 +3,8 @@
 
 namespace AcMarche\EnquetePublique\Entity\Traits;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,7 +46,7 @@ trait AvisFileTrait
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $avisFile
+     * @param File|UploadedFile|null $avisFile
      */
     public function setAvisFile(?File $avisFile = null): void
     {
@@ -53,7 +55,7 @@ trait AvisFileTrait
         if (null !== $avisFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Repository;
 
+use DateTime;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,7 +29,7 @@ class EnqueteRepository extends ServiceEntityRepository
             ->leftJoin('enquete.documents', 'documents', 'WITH')
             ->leftJoin('enquete.categorie', 'categorie', 'WITH');
 
-        $today = new \DateTime();
+        $today = new DateTime();
 
         $qb->andWhere('enquete.date_fin > :date AND enquete.date_debut <= :date ')
             ->setParameter('date', $today->format('Y-m-d'));
@@ -62,16 +63,16 @@ class EnqueteRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function remove(Enquete $reduction)
+    public function remove(Enquete $reduction): void
     {
         $this->_em->remove($reduction);
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->_em->flush();
     }
-    public function persist(Enquete $reduction)
+    public function persist(Enquete $reduction): void
     {
         $this->_em->persist($reduction);
     }
