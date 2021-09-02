@@ -50,14 +50,14 @@ class EnqueteType extends AbstractType
                 [
                     'label' => 'Affiche avis',
                     'help' => 'Uniquement pdf ou images',
-                    'required' => true,
+                    'required' => false,
                 ]
             )
             ->add(
                 'rue',
                 TextType::class,
                 [
-                    'required' => true,
+                    'required' => false,
                 ]
             )
             ->add(
@@ -78,7 +78,7 @@ class EnqueteType extends AbstractType
                 'localite',
                 TextType::class,
                 [
-                    'required' => true,
+                    'required' => false,
                 ]
             );
     }
