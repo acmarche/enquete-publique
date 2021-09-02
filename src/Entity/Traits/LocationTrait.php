@@ -8,7 +8,7 @@ trait LocationTrait
 {
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $rue;
 
@@ -26,7 +26,7 @@ trait LocationTrait
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $localite;
 
