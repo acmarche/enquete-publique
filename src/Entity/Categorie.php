@@ -28,7 +28,7 @@ class Categorie
     /**
      * @ORM\OneToMany(targetEntity=Enquete::class, mappedBy="categorie", orphanRemoval=true)
      */
-    private Collection $enquetes;
+    private iterable $enquetes;
 
     public function __construct()
     {
@@ -60,7 +60,7 @@ class Categorie
     /**
      * @return Collection|Enquete[]
      */
-    public function getEnquetes(): ArrayCollection
+    public function getEnquetes(): iterable
     {
         return $this->enquetes;
     }

@@ -58,7 +58,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
     /**
      * @ORM\OneToMany(targetEntity="AcMarche\EnquetePublique\Entity\Document", mappedBy="enquete", cascade={"persist", "remove"})
      */
-    private Collection $documents;
+    private iterable $documents;
 
     public function __construct()
     {
@@ -117,7 +117,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
     /**
      * @return Collection|Document[]
      */
-    public function getDocuments(): ArrayCollection
+    public function getDocuments(): iterable
     {
         return $this->documents;
     }
