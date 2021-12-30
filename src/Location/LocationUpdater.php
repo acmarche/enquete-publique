@@ -49,13 +49,7 @@ class LocationUpdater
             } else {
                 throw new Exception('Convertion en latitude longitude error:'.$response);
             }
-        } catch (ClientExceptionInterface $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        } catch (RedirectionExceptionInterface $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        } catch (ServerExceptionInterface $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        } catch (TransportExceptionInterface $e) {
+        } catch (ClientExceptionInterface|ServerExceptionInterface|RedirectionExceptionInterface|TransportExceptionInterface $e) {
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
