@@ -32,8 +32,7 @@ class LocationUpdater
         try {
             $response = $this->location->search($this->getAdresseString($object));
 
-            //todo JSON_THROW_ON_ERROR 7.4
-            $tab = json_decode($response, true);
+            $tab = json_decode($response, true,512,JSON_THROW_ON_ERROR);
 
             if (is_array($tab) && count($tab) == 0) {
                 throw new Exception('L\'adresse n\'a pas pu être convertie en latitude longitude:'.$response);
