@@ -4,11 +4,8 @@ namespace AcMarche\EnquetePublique\Enquete\Message;
 
 final class EnqueteDeleted
 {
-    private int $enqueteId;
-
-    public function __construct(int $enqueteId)
+    public function __construct(private int $enqueteId)
     {
-        $this->enqueteId = $enqueteId;
     }
 
     public function getEnqueteId(): int

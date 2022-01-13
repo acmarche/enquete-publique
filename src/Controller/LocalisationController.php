@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Controller;
 
 use AcMarche\EnquetePublique\Entity\Enquete;
@@ -13,25 +12,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LocalisationController extends AbstractController
 {
-    private EnqueteRepository $enqueteRepository;
-
-    public function __construct(EnqueteRepository $enqueteRepository)
+    public function __construct(private EnqueteRepository $enqueteRepository)
     {
-        $this->enqueteRepository = $enqueteRepository;
     }
 
-    /**
-     * @Route("/localisation/{id}", name="enquete_localisation_edit", methods={"GET","POST"})
-     */
+    #[Route(path: '/localisation/{id}', name: 'enquete_localisation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Enquete $enquete): Response
     {
         $form = $this->createForm(LocalisationType::class, $enquete);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->enqueteRepository->flush();
-            $this->addFlash("success", "La géolocalisation a bien été modifiée");
+            $this->addFlash('success', 'La géolocalisation a bien été modifiée');
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }
@@ -44,5 +36,4 @@ class LocalisationController extends AbstractController
             ]
         );
     }
-
 }

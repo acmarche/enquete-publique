@@ -4,13 +4,8 @@ namespace AcMarche\EnquetePublique\Enquete\Message;
 
 class EnqueteUpdated
 {
-    private int $enqueteId;
-    private ?string $oldRue;
-
-    public function __construct(int $enqueteId, ?string $oldRue)
+    public function __construct(private int $enqueteId, private ?string $oldRue)
     {
-        $this->enqueteId = $enqueteId;
-        $this->oldRue = $oldRue;
     }
 
     public function getEnqueteId(): int
@@ -18,12 +13,8 @@ class EnqueteUpdated
         return $this->enqueteId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOldRue(): ?string
     {
         return $this->oldRue;
     }
-
 }

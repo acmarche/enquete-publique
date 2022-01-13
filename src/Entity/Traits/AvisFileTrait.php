@@ -1,12 +1,11 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Entity\Traits;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -16,27 +15,22 @@ trait AvisFileTrait
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="avis_file", fileNameProperty="avisName", size="avisSize")
-     * @Assert\File(
-     *     maxSize = "16384k",
-     *     mimeTypes = {"application/pdf", "application/x-pdf", "image/*"},
-     *     mimeTypesMessage = "Uniquement des PDF ou images"
-     * )
+     *
      * @var File|null
      */
+    #[Assert\File(maxSize: '16384k', mimeTypes: ['application/pdf', 'application/x-pdf', 'image/*'], mimeTypesMessage: 'Uniquement des PDF ou images')]
     private $avisFile;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $avisName;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
      * @var int|null
      */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $avisSize;
 
     /**
@@ -45,8 +39,6 @@ trait AvisFileTrait
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
-     *
-     * @param File|UploadedFile|null $avisFile
      */
     public function setAvisFile(?File $avisFile = null): void
     {

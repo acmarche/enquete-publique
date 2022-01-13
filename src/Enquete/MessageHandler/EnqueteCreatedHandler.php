@@ -2,34 +2,31 @@
 
 namespace AcMarche\EnquetePublique\Enquete\MessageHandler;
 
-use Exception;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteCreated;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Location\LocationUpdater;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
+use Exception;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 class EnqueteCreatedHandler implements MessageSubscriberInterface
 {
-    private EnqueteRepository $enqueteRepository;
     private FlashBagInterface $flashBag;
-    private LocationUpdater $locationUpdater;
 
     public function __construct(
-        EnqueteRepository $enqueteRepository,
-        LocationUpdater $locationUpdater,
-        FlashBagInterface $flashBag
+        private EnqueteRepository $enqueteRepository,
+        private LocationUpdater $locationUpdater,
+        RequestStack $requestStack
     ) {
-        $this->enqueteRepository = $enqueteRepository;
-        $this->flashBag = $flashBag;
-        $this->locationUpdater = $locationUpdater;
+        $this->flashBag = $requestStack->getSession()->getFlashBag();
     }
 
     public function __invoke(EnqueteCreated $enqueteCreated)
     {
         $enquete = $this->enqueteRepository->find($enqueteCreated->getEnqueteId());
-        $this->flashBag->add('success','L\'enquête a bien été ajoutée');
+        $this->flashBag->add('success', 'L\'enquête a bien été ajoutée');
         $this->setLocation($enquete);
         $this->enqueteRepository->flush();
     }

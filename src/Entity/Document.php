@@ -1,74 +1,46 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Entity;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use AcMarche\EnquetePublique\Repository\DocumentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Stringable;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass="AcMarche\EnquetePublique\Repository\DocumentRepository")
  * @Vich\Uploadable
  */
-class Document implements TimestampableInterface
+#[ORM\Entity(repositoryClass: DocumentRepository::class)]
+class Document implements TimestampableInterface, Stringable
 {
     use TimestampableTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank]
     protected ?string $name = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     protected ?string $description = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AcMarche\EnquetePublique\Entity\Enquete", inversedBy="documents")
-     */
-    protected ?Enquete $enquete;
-
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="enquete_document", fileNameProperty="fileName", size="fileSize")
-     *
-     * @Assert\File(
-     *     maxSize = "16384k",
-     *     mimeTypes = {"application/pdf", "application/x-pdf", "image/*"},
-     *     mimeTypesMessage = "Uniquement des PDF ou images"
-     * )
      */
+    #[Assert\File(maxSize: '16384k', mimeTypes: ['application/pdf', 'application/x-pdf', 'image/*'], mimeTypesMessage: 'Uniquement des PDF ou images')]
     private ?File $file = null;
-
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private ?string $fileName = null;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private ?int $fileSize = null;
-
-    /**
-     * @ORM\Column(name="mime_type", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'mime_type', type: 'string', nullable: true)]
     protected ?string $mimeType = null;
 
     /**
@@ -77,8 +49,6 @@ class Document implements TimestampableInterface
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
-     *
-     * @param File|UploadedFile|null $file
      */
     public function setDocFile(?File $file = null): void
     {
@@ -91,30 +61,23 @@ class Document implements TimestampableInterface
         }
     }
 
-    /**
-     * @return File|null
-     */
     public function getFile(): ?File
     {
         return $this->file;
     }
 
-    /**
-     * @param File|null $file
-     */
     public function setFile(?File $file): void
     {
         $this->file = $file;
     }
 
-    public function __construct(Enquete $enquete)
+    public function __construct(#[ORM\ManyToOne(targetEntity: Enquete::class, inversedBy: 'documents')] protected ?Enquete $enquete)
     {
-        $this->enquete = $enquete;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int
@@ -170,7 +133,7 @@ class Document implements TimestampableInterface
         return $this;
     }
 
-    public function getEnquete(): Enquete
+    public function getEnquete(): ?Enquete
     {
         return $this->enquete;
     }
@@ -193,5 +156,4 @@ class Document implements TimestampableInterface
 
         return $this;
     }
-
 }

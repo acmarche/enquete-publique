@@ -1,33 +1,23 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Entity;
 
+use AcMarche\EnquetePublique\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
-/**
- * @ORM\Entity(repositoryClass="AcMarche\EnquetePublique\Repository\CategorieRepository")
- *
- */
-class Categorie
+#[ORM\Entity(repositoryClass: CategorieRepository::class)]
+class Categorie implements Stringable
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private ?string $nom = null;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Enquete::class, mappedBy="categorie", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Enquete::class, mappedBy: 'categorie', orphanRemoval: true)]
     private iterable $enquetes;
 
     public function __construct()
@@ -35,9 +25,9 @@ class Categorie
         $this->enquetes = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->nom;
+        return (string) $this->nom;
     }
 
     public function getId(): ?int
@@ -84,5 +74,4 @@ class Categorie
 
         return $this;
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace AcMarche\EnquetePublique\Repository;
 
-use DateTime;
 use AcMarche\EnquetePublique\Entity\Enquete;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,7 +39,6 @@ class EnqueteRepository extends ServiceEntityRepository
                 ->addOrderBy('enquete.date_debut', 'ASC')
                 ->getQuery()
                 ->getResult();
-
     }
 
     /**
@@ -72,9 +71,9 @@ class EnqueteRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
+
     public function persist(Enquete $reduction): void
     {
         $this->_em->persist($reduction);
     }
-
 }

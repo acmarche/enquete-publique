@@ -2,32 +2,25 @@
 
 namespace AcMarche\EnquetePublique\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\EnquetePublique\Entity\Categorie;
 use AcMarche\EnquetePublique\Form\CategorieType;
 use AcMarche\EnquetePublique\Repository\CategorieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/categorie")
- * @IsGranted("ROLE_ENQUETE_ADMIN")
- */
+#[Route(path: '/categorie')]
+#[IsGranted(data: 'ROLE_ENQUETE_ADMIN')]
 class CategorieController extends AbstractController
 {
-    private CategorieRepository $categorieRepository;
-
-    public function __construct(CategorieRepository $categorieRepository)
+    public function __construct(private CategorieRepository $categorieRepository)
     {
-        $this->categorieRepository = $categorieRepository;
     }
 
-    /**
-     * @Route("/", name="enquete_categorie_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'enquete_categorie_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -38,15 +31,12 @@ class CategorieController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new", name="enquete_categorie_new", methods={"GET","POST"})
-     */
+    #[Route(path: '/new', name: 'enquete_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categorieRepository->persist($categorie);
             $this->categorieRepository->flush();
@@ -65,9 +55,7 @@ class CategorieController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="enquete_categorie_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}', name: 'enquete_categorie_show', methods: ['GET'])]
     public function show(Categorie $categorie): Response
     {
         return $this->render(
@@ -78,14 +66,11 @@ class CategorieController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="enquete_categorie_edit", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'enquete_categorie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Categorie $categorie): Response
     {
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categorieRepository->flush();
             $this->addFlash('success', 'La catégorie a bien été modifiée');
@@ -102,10 +87,8 @@ class CategorieController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="enquete_categorie_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Categorie $categorie): Response
+    #[Route(path: '/{id}', name: 'enquete_categorie_delete', methods: ['DELETE'])]
+    public function delete(Request $request, Categorie $categorie): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
             $this->categorieRepository->remove($categorie);

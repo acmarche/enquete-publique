@@ -1,63 +1,45 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Entity;
 
-use DateTime;
 use AcMarche\EnquetePublique\Entity\Traits\AvisFileTrait;
 use AcMarche\EnquetePublique\Entity\Traits\DatesDiffusionTrait;
 use AcMarche\EnquetePublique\Entity\Traits\LocationTrait;
 use AcMarche\EnquetePublique\Location\LocationAbleInterface;
+use AcMarche\EnquetePublique\Repository\EnqueteRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Stringable;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass="AcMarche\EnquetePublique\Repository\EnqueteRepository")
- *
  * @Vich\Uploadable
  */
-class Enquete implements TimestampableInterface, LocationAbleInterface
+#[ORM\Entity(repositoryClass: EnqueteRepository::class)]
+class Enquete implements TimestampableInterface, LocationAbleInterface, Stringable
 {
     use LocationTrait;
     use DatesDiffusionTrait;
     use TimestampableTrait;
     use AvisFileTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $intitule = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $demandeur = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="enquetes")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'enquetes')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AcMarche\EnquetePublique\Entity\Document", mappedBy="enquete", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'enquete', cascade: ['persist', 'remove'])]
     private iterable $documents;
 
     public function __construct()
@@ -68,9 +50,9 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
         $this->date_fin = new DateTime('+1 month');
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->demandeur;
+        return (string) $this->demandeur;
     }
 
     public function getId(): ?int
@@ -102,7 +84,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
         return $this;
     }
 
-    public function getDemandeur(): string
+    public function getDemandeur(): ?string
     {
         return $this->demandeur;
     }
@@ -142,7 +124,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
         return $this;
     }
 
-    public function getIntitule(): string
+    public function getIntitule(): ?string
     {
         return $this->intitule;
     }
@@ -153,5 +135,4 @@ class Enquete implements TimestampableInterface, LocationAbleInterface
 
         return $this;
     }
-
 }

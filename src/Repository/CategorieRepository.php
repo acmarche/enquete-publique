@@ -44,5 +44,4 @@ class CategorieRepository extends ServiceEntityRepository
     {
         $this->_em->persist($categorie);
     }
-
 }

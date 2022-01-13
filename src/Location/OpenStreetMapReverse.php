@@ -2,15 +2,14 @@
 
 namespace AcMarche\EnquetePublique\Location;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * https://nominatim.org/release-docs/develop/api/Overview/
- * Class OpenStreetMapReverse
- * @package AcMarche\Avaloir\Location
+ * Class OpenStreetMapReverse.
  */
 class OpenStreetMapReverse implements LocationReverseInterface
 {
@@ -28,12 +27,12 @@ class OpenStreetMapReverse implements LocationReverseInterface
     /**
      * @param $latitude
      * @param $longitude
-     * @return array
+     *
      * @throws Exception
      */
     public function reverse($latitude, $longitude): array
     {
-        sleep(1);//policy
+        sleep(1); //policy
         try {
             $request = $this->client->request(
                 'GET',
@@ -51,7 +50,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
                 ]
             );
 
-            $this->result = json_decode($request->getContent(), true);
+            $this->result = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             return $this->result;
         } catch (ClientException $e) {
@@ -98,7 +97,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
 
         return null;
     }
-    /**
+    /*
      * {
      * "place_id":188259342,
      * "licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",

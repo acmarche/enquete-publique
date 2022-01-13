@@ -2,9 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Form;
 
-use AcMarche\EnquetePublique\Entity\Categorie;
 use AcMarche\EnquetePublique\Entity\Enquete;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

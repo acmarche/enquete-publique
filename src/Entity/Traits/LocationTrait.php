@@ -8,38 +8,38 @@ trait LocationTrait
 {
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $rue;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $numero;
 
     /**
      * @var int|null
-     * @ORM\Column(type="integer", nullable=false)
      */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $code_postal;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $localite;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $longitude;
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $latitude;
 
     public function getRue(): ?string
@@ -66,17 +66,11 @@ trait LocationTrait
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getCodePostal(): ?int
     {
         return $this->code_postal;
     }
 
-    /**
-     * @param int|null $code_postal
-     */
     public function setCodePostal(?int $code_postal): void
     {
         $this->code_postal = $code_postal;

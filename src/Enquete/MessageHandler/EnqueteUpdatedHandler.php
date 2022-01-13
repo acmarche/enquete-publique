@@ -2,27 +2,24 @@
 
 namespace AcMarche\EnquetePublique\Enquete\MessageHandler;
 
-use Exception;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteUpdated;
 use AcMarche\EnquetePublique\Location\LocationUpdater;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
+use Exception;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class EnqueteUpdatedHandler implements MessageHandlerInterface
 {
-    private EnqueteRepository $enqueteRepository;
     private FlashBagInterface $flashBag;
-    private LocationUpdater $locationUpdater;
 
     public function __construct(
-        EnqueteRepository $enqueteRepository,
-        LocationUpdater $locationUpdater,
-        FlashBagInterface $flashBag
+        private EnqueteRepository $enqueteRepository,
+        private LocationUpdater $locationUpdater,
+        RequestStack $requestStack
     ) {
-        $this->enqueteRepository = $enqueteRepository;
-        $this->flashBag = $flashBag;
-        $this->locationUpdater = $locationUpdater;
+        $this->flashBag = $requestStack->getSession()->getFlashBag();
     }
 
     public function __invoke(EnqueteUpdated $enqueteCreated)
@@ -44,5 +41,4 @@ class EnqueteUpdatedHandler implements MessageHandlerInterface
             }
         }
     }
-
 }

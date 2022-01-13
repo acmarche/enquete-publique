@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Controller;
 
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
@@ -9,28 +8,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DefaultController
- * @package AcMarche\EnquetePublique\Controller
- * @Route("/api")
+ * Class DefaultController.
  */
+#[Route(path: '/api')]
 class ApiController extends AbstractController
 {
-    private EnqueteRepository $enqueteRepository;
-
-    public function __construct(EnqueteRepository $enqueteRepository)
+    public function __construct(private EnqueteRepository $enqueteRepository)
     {
-        $this->enqueteRepository = $enqueteRepository;
     }
 
-    /**
-     * @Route("/", name="enquete_publique_api")
-     */
+    #[Route(path: '/', name: 'enquete_publique_api')]
     public function index(): JsonResponse
     {
         $url = 'https://extranet.marche.be/files/enquete_publiques/avis/';
         $enquetes = $this->enqueteRepository->findAllPublished();
         $data = [];
-
         foreach ($enquetes as $enquete) {
             $data1 = $documents = [];
             $data1['id'] = $enquete->getId();
@@ -60,6 +52,5 @@ class ApiController extends AbstractController
         }
 
         return new JsonResponse($data);
-
     }
 }

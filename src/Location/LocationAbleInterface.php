@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Location;
 
 interface LocationAbleInterface

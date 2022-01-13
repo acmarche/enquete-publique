@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Location;
 
 use Exception;
@@ -11,16 +10,11 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class LocationUpdater
 {
-    private LocationInterface $location;
-
-    public function __construct(LocationInterface $location)
+    public function __construct(private LocationInterface $location)
     {
-        $this->location = $location;
     }
 
     /**
-     * @param LocationAbleInterface $object
-     * @return bool
      * @throws Exception
      */
     public function convertAddressToCoordinates(LocationAbleInterface $object): bool
@@ -32,17 +26,17 @@ class LocationUpdater
         try {
             $response = $this->location->search($this->getAdresseString($object));
 
-            $tab = json_decode($response, true,512,JSON_THROW_ON_ERROR);
+            $tab = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
-            if (is_array($tab) && count($tab) == 0) {
+            if (\is_array($tab) && 0 == \count($tab)) {
                 throw new Exception('L\'adresse n\'a pas pu être convertie en latitude longitude:'.$response);
             }
 
-            if ($tab == false) {
+            if (false == $tab) {
                 throw new Exception('Decode json error:'.$response);
             }
 
-            if (is_array($tab) && count($tab) > 0) {
+            if (\is_array($tab) && [] !== $tab) {
                 $this->setLat($object, $tab);
 
                 return true;
@@ -67,5 +61,4 @@ class LocationUpdater
             $object->getCodePostal().' '.
             $object->getLocalite();
     }
-
 }

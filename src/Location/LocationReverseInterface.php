@@ -1,15 +1,12 @@
 <?php
 
-
 namespace AcMarche\EnquetePublique\Location;
-
 
 interface LocationReverseInterface
 {
     /**
      * @param $latitude
      * @param $longitude
-     * @return array
      */
     public function reverse($latitude, $longitude): array;
 
@@ -18,5 +15,4 @@ interface LocationReverseInterface
     public function getLocality(): ?string;
 
     public function getHouseNumber(): ?string;
-
 }
