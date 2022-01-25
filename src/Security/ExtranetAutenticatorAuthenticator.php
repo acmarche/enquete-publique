@@ -26,11 +26,6 @@ class ExtranetAutenticatorAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
-    public function checkCredentials(): void
-    {
-        dd(123);
-    }
-
     public function authenticate(Request $request): Passport
     {
         $username = $request->request->get('username', '');
@@ -52,9 +47,7 @@ class ExtranetAutenticatorAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        //return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('enquete_index'));
     }
 
     protected function getLoginUrl(Request $request): string
