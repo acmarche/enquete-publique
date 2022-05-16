@@ -26,6 +26,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
     use DatesDiffusionTrait;
     use TimestampableTrait;
     use AvisFileTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -41,6 +42,9 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
     private ?string $description = null;
     #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'enquete', cascade: ['persist', 'remove'])]
     private iterable $documents;
+    #[ORM\ManyToOne(targetEntity: CategorieWp::class, inversedBy: 'enquetes')]
+    #[ORM\JoinColumn(nullable: true)]
+    public ?CategorieWp $categorie_wp = null;
 
     public function __construct()
     {

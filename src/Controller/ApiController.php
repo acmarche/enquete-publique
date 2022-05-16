@@ -48,6 +48,7 @@ class ApiController extends AbstractController
                 $documents['name'] = $document->getName();
             }
             $data1['documents'] = $documents;
+            $data1['categoriewp'] = $enquete->categorie_wp->getId();
             $data[] = $data1;
         }
 

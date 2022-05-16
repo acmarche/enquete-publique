@@ -3,7 +3,6 @@
     </li>
     {% if is_granted('ROLE_ENQUETE_ADMIN') %}
         <li class="nav-item"><a href="{{ path('enquete_new') }}" class="nav-link">Ajouter</a></li>
-        <li class="nav-item"><a href="{{ path('enquete_categorie_index') }}" class="nav-link">Catégories</a></li>
     <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link">{{ app.user }}</a></li>
     {% endif %}
 </ul>

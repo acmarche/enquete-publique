@@ -2,11 +2,11 @@
 
 {% block body %}
     <div class="page-header">
-        <h3>Liste des catégories</h3>
+        <h3>Liste des catégories sur marche.be</h3>
     </div>
     {% if is_granted('ROLE_ENQUETE_ADMIN') %}
 
-        <a href="{{ path('enquete_categorie_new') }}" class="btn btn-primary" role="button"><i
+        <a href="{{ path('enquete_categorie_wp_new') }}" class="btn btn-primary" role="button"><i
                     class="fas fa-plus"></i> Ajouter</a>
         <br/><br/>
 
@@ -16,18 +16,16 @@
         <thead>
         <tr>
             <th>Nom</th>
-            <th>Enquetes</th>
         </tr>
         </thead>
         <tbody>
-        {% for categorie in categories %}
+        {% for categorie_wp in categorie_wps %}
             <tr>
                 <td>
-                    <a href="{{ path('enquete_categorie_show', { 'id': categorie.id }) }}">
-                        {{ categorie }}
+                    <a href="{{ path('enquete_categorie_wp_show', { 'id': categorie_wp.id }) }}">
+                        {{ categorie_wp }}
                     </a>
                 </td>
-                <td>{{ categorie.enquetes|length }}</td>
             </tr>
         {% endfor %}
         </tbody>
