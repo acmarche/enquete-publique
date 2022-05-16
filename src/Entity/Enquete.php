@@ -42,9 +42,8 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
     private ?string $description = null;
     #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'enquete', cascade: ['persist', 'remove'])]
     private iterable $documents;
-    #[ORM\ManyToOne(targetEntity: CategorieWp::class, inversedBy: 'enquetes')]
-    #[ORM\JoinColumn(nullable: true)]
-    public ?CategorieWp $categorie_wp = null;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    public int|null $categorie_wp = null;
 
     public function __construct()
     {
@@ -56,7 +55,7 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
 
     public function __toString(): string
     {
-        return (string) $this->demandeur;
+        return (string)$this->demandeur;
     }
 
     public function getId(): ?int

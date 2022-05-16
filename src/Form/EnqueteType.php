@@ -86,6 +86,7 @@ class EnqueteType extends AbstractType
                 EntityType::class,
                 [
                     'class' => CategorieWp::class,
+                    'choice_value' => 'wpcatid',
                     'required' => true,
                     'label' => 'Catégorie du site marche.be',
                 ]
