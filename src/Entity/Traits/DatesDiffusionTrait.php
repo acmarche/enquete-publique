@@ -7,17 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait DatesDiffusionTrait
 {
-    /**
-     * @var DateTimeInterface|null
-     */
     #[ORM\Column(type: 'date')]
-    private $date_debut;
+    private DateTimeInterface|null $date_debut;
 
-    /**
-     * @var DateTimeInterface|null
-     */
     #[ORM\Column(type: 'date')]
-    private $date_fin;
+    private DateTimeInterface|null $date_fin;
 
     public function getDateDebut(): ?DateTimeInterface
     {

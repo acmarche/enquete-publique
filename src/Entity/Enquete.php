@@ -16,9 +16,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Stringable;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable
- */
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: EnqueteRepository::class)]
 class Enquete implements TimestampableInterface, LocationAbleInterface, Stringable
 {

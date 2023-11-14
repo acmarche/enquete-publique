@@ -6,41 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait LocationTrait
 {
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    private $rue;
+    private string|null $rue;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    private $numero;
+    private string|null $numero;
 
-    /**
-     * @var int|null
-     */
     #[ORM\Column(type: 'integer', nullable: false)]
-    private $code_postal;
+    private int|null $code_postal;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    private $localite;
+    private string|null $localite;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    private $longitude;
+    private string|null $longitude;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    private $latitude;
+    private string|null $latitude;
 
     public function getRue(): ?string
     {
