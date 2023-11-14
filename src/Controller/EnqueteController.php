@@ -8,7 +8,7 @@ use AcMarche\EnquetePublique\Enquete\Message\EnqueteUpdated;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Form\EnqueteType;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/enquete')]
-#[IsGranted(data: 'ROLE_ENQUETE_ADMIN')]
+#[IsGranted('ROLE_ENQUETE_ADMIN')]
 class EnqueteController extends AbstractController
 {
     public function __construct(private EnqueteRepository $enqueteRepository, private MessageBusInterface $messageBus)
