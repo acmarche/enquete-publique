@@ -1,8 +1,0 @@
-doctrine:
-  orm:
-    mappings:
-      AcMarche\EnquetePublique:
-        is_bundle: false
-        dir: '%kernel.project_dir%/src/AcMarche/EnquetePublique/src/Entity'
-        prefix: 'AcMarche\EnquetePublique'
-        alias: AcMarcheEnquetePublique
