@@ -16,13 +16,13 @@ trait AvisFileTrait
         'application/x-pdf',
         'image/*',
     ], mimeTypesMessage: 'Uniquement des PDF ou images')]
-    private ?File $avisFile;
+    private ?File $avisFile = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $avisName;
+    private ?string $avisName = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $avisSize;
+    private ?int $avisSize = 0;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
