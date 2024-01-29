@@ -56,7 +56,7 @@ class LocationUpdater
 
     private function getAdresseString(LocationAbleInterface $object): string
     {
-        return $object->getNumero().' LocationUpdater.php'.
+        return $object->getNumero().' '.
             $object->getRue().', '.
             $object->getCodePostal().' '.
             $object->getLocalite();
