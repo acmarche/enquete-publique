@@ -5,7 +5,7 @@ namespace AcMarche\EnquetePublique\Controller;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/api')]
 class ApiController extends AbstractController
