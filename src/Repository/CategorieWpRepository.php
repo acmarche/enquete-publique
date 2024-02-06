@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Repository;
 
+use AcMarche\EnquetePublique\Doctrine\OrmCrudTrait;
 use AcMarche\EnquetePublique\Entity\CategorieWp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategorieWpRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CategorieWp::class);
@@ -30,18 +33,4 @@ class CategorieWpRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function remove(CategorieWp $categorie): void
-    {
-        $this->_em->remove($categorie);
-    }
-
-    public function flush(): void
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(CategorieWp $categorie): void
-    {
-        $this->_em->persist($categorie);
-    }
 }

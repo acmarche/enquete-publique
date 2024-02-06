@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Repository;
 
+use AcMarche\EnquetePublique\Doctrine\OrmCrudTrait;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -15,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EnqueteRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Enquete::class);
@@ -60,20 +63,5 @@ class EnqueteRepository extends ServiceEntityRepository
                 ->addOrderBy('enquete.date_fin', 'DESC')
                 ->getQuery()
                 ->getResult();
-    }
-
-    public function remove(Enquete $reduction): void
-    {
-        $this->_em->remove($reduction);
-    }
-
-    public function flush(): void
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(Enquete $reduction): void
-    {
-        $this->_em->persist($reduction);
     }
 }
