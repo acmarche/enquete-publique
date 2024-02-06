@@ -5,9 +5,10 @@ namespace AcMarche\EnquetePublique\Enquete\MessageHandler;
 use AcMarche\EnquetePublique\Enquete\Message\EnqueteDeleted;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class EnqueteDeletedHandler implements MessageHandlerInterface
+#[AsMessageHandler()]
+final class EnqueteDeletedHandler
 {
     private FlashBagInterface $flashBag;
 

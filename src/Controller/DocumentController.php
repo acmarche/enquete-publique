@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * Document controller.
- */
 #[Route(path: '/document')]
 #[IsGranted('ROLE_ENQUETE_ADMIN')]
 class DocumentController extends AbstractController
@@ -25,9 +22,6 @@ class DocumentController extends AbstractController
     {
     }
 
-    /**
-     * Displays a form to create a new Document entity.
-     */
     #[Route(path: '/new/{id}', name: 'enquete_document_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Enquete $enquete): Response
     {

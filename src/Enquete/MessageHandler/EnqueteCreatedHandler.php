@@ -9,9 +9,10 @@ use AcMarche\EnquetePublique\Repository\EnqueteRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-class EnqueteCreatedHandler implements MessageSubscriberInterface
+#[AsMessageHandler()]
+class EnqueteCreatedHandler
 {
     private FlashBagInterface $flashBag;
 

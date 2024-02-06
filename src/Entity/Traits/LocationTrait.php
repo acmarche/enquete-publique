@@ -7,22 +7,22 @@ use Doctrine\ORM\Mapping as ORM;
 trait LocationTrait
 {
     #[ORM\Column(type: 'string', nullable: true)]
-    private string|null $rue;
+    private string|null $rue = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string|null $numero;
+    private string|null $numero = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int|null $code_postal;
+    private int|null $code_postal = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string|null $localite;
+    private string|null $localite = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string|null $longitude;
+    private string|null $longitude = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string|null $latitude;
+    private string|null $latitude = null;
 
     public function getRue(): ?string
     {
