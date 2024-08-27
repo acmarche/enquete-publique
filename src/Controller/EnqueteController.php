@@ -20,9 +20,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[IsGranted('ROLE_ENQUETE_ADMIN')]
 class EnqueteController extends AbstractController
 {
-    public function __construct(private EnqueteRepository $enqueteRepository, private MessageBusInterface $messageBus)
-    {
-    }
+    public function __construct(
+        private EnqueteRepository $enqueteRepository,
+        private MessageBusInterface $messageBus,
+    ) {}
 
     #[Route(path: '/', name: 'enquete_index', methods: ['GET'])]
     public function index(): Response
@@ -31,7 +32,7 @@ class EnqueteController extends AbstractController
             '@EnquetePublique/enquete/index.html.twig',
             [
                 'enquetes' => $this->enqueteRepository->findOrderByDate(),
-            ]
+            ],
         );
     }
 
@@ -54,7 +55,7 @@ class EnqueteController extends AbstractController
             [
                 'enquete' => $enquete,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -65,7 +66,7 @@ class EnqueteController extends AbstractController
             '@EnquetePublique/enquete/show.html.twig',
             [
                 'enquete' => $enquete,
-            ]
+            ],
         );
     }
 
@@ -87,11 +88,11 @@ class EnqueteController extends AbstractController
             [
                 'enquete' => $enquete,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
-    #[Route(path: '/{id}', name: 'enquete_delete', methods: ['DELETE'])]
+    #[Route(path: '/{id}', name: 'enquete_delete', methods: ['POST', 'DELETE'])]
     public function delete(Request $request, Enquete $enquete): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$enquete->getId(), $request->request->get('_token'))) {
