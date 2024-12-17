@@ -48,8 +48,8 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
     {
         $this->documents = new ArrayCollection();
         $this->code_postal = 6900;
-        $this->date_debut = new DateTime();
-        $this->date_fin = new DateTime('+1 month');
+        $this->date_debut = new \DateTimeImmutable();
+        $this->date_fin = new \DateTimeImmutable('+1 month');
     }
 
     public function __toString(): string
