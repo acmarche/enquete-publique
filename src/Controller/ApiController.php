@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route(path: '/api')]
 class ApiController extends AbstractController
 {
-    public function __construct(private EnqueteRepository $enqueteRepository)
+    public function __construct(private readonly EnqueteRepository $enqueteRepository)
     {
     }
 
@@ -21,7 +21,8 @@ class ApiController extends AbstractController
         $enquetes = $this->enqueteRepository->findAllPublished();
         $data = [];
         foreach ($enquetes as $enquete) {
-            $data1 = $documents = [];
+            $data1 = [];
+            $documents = [];
             $data1['id'] = $enquete->getId();
             $data1['avis'] = $url.$enquete->getAvisName();
             $data1['intitule'] = $enquete->getIntitule();
@@ -29,6 +30,7 @@ class ApiController extends AbstractController
             if (($categorie = $enquete->getCategorie()) !== null) {
                 $nomCategorie = $categorie->getNom();
             }
+
             $data1['categorie'] = $nomCategorie;
             $data1['description'] = $enquete->getDescription();
             $data1['demandeur'] = $enquete->getDemandeur();
@@ -44,6 +46,7 @@ class ApiController extends AbstractController
                 $documents['description'] = $document->getDescription();
                 $documents['name'] = $document->getName();
             }
+
             $data1['documents'] = $documents;
             $data1['categoriewp'] = $enquete->categorie_wp->wpcatid;
             $data[] = $data1;

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[IsGranted('ROLE_ENQUETE_ADMIN')]
 class CategorieWpController extends AbstractController
 {
-    public function __construct(private CategorieWpRepository $categorieWpRepository)
+    public function __construct(private readonly CategorieWpRepository $categorieWpRepository)
     {
     }
 

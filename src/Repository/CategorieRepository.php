@@ -17,17 +17,20 @@ class CategorieRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Categorie::class);
+        parent::__construct($managerRegistry, Categorie::class);
     }
 
-    public function findAllSorted()
+    /**
+     * @return Categorie[]
+     */
+    public function findAllSorted(): array
     {
-        $qb = $this->createQueryBuilder('categorie');
+        $queryBuilder = $this->createQueryBuilder('categorie');
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('categorie.nom', 'ASC')
                 ->getQuery()
                 ->getResult();

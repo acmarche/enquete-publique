@@ -7,9 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class DocumentEditType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->remove('file');
     }
 

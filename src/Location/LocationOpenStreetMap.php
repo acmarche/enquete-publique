@@ -11,17 +11,17 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LocationOpenStreetMap implements LocationInterface
 {
-    private string $baseUrl;
-    private HttpClientInterface $client;
+    private readonly string $baseUrl;
+
+    private readonly HttpClientInterface $httpClient;
 
     public function __construct()
     {
         $this->baseUrl = 'https://nominatim.openstreetmap.org/search';
-        $this->client = HttpClient::create();
+        $this->httpClient = HttpClient::create();
     }
 
     /**
-     * @return mixed
      *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -30,7 +30,7 @@ class LocationOpenStreetMap implements LocationInterface
      */
     public function search(string $query): string
     {
-        $response = $this->client->request(
+        $response = $this->httpClient->request(
             'GET',
             $this->baseUrl,
             [

@@ -17,17 +17,20 @@ class CategorieWpRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, CategorieWp::class);
+        parent::__construct($managerRegistry, CategorieWp::class);
     }
 
-    public function findAllSorted()
+    /**
+     * @return CategorieWp[]
+     */
+    public function findAllSorted(): array
     {
-        $qb = $this->createQueryBuilder('categorie');
+        $queryBuilder = $this->createQueryBuilder('categorie');
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('categorie.nom', 'ASC')
                 ->getQuery()
                 ->getResult();

@@ -14,17 +14,17 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler()]
 class EnqueteCreatedHandler
 {
-    private FlashBagInterface $flashBag;
+    private readonly FlashBagInterface $flashBag;
 
     public function __construct(
-        private EnqueteRepository $enqueteRepository,
-        private LocationUpdater $locationUpdater,
+        private readonly EnqueteRepository $enqueteRepository,
+        private readonly LocationUpdater $locationUpdater,
         RequestStack $requestStack
     ) {
         $this->flashBag = $requestStack->getSession()->getFlashBag();
     }
 
-    public function __invoke(EnqueteCreated $enqueteCreated)
+    public function __invoke(EnqueteCreated $enqueteCreated): void
     {
         $enquete = $this->enqueteRepository->find($enqueteCreated->getEnqueteId());
         $this->flashBag->add('success', 'L\'enquête a bien été ajoutée');
@@ -36,10 +36,10 @@ class EnqueteCreatedHandler
     {
         try {
             $this->locationUpdater->convertAddressToCoordinates($enquete);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->flashBag->add(
                 'danger',
-                $e->getMessage()
+                $exception->getMessage()
             );
         }
     }

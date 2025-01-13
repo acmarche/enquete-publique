@@ -2,6 +2,8 @@
 
 namespace AcMarche\EnquetePublique\Entity\Traits;
 
+use Doctrine\DBAL\Types\Types;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -18,10 +20,10 @@ trait AvisFileTrait
     ], mimeTypesMessage: 'Uniquement des PDF ou images')]
     private ?File $avisFile = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $avisName = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $avisSize = 0;
 
     /**
@@ -35,10 +37,10 @@ trait AvisFileTrait
     {
         $this->avisFile = $avisFile;
 
-        if (null !== $avisFile) {
+        if ($avisFile instanceof File) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime();
+            $this->updatedAt = new DateTime();
         }
     }
 

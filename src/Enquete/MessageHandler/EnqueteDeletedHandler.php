@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler()]
-final class EnqueteDeletedHandler
+final readonly class EnqueteDeletedHandler
 {
     private FlashBagInterface $flashBag;
 
@@ -17,7 +17,7 @@ final class EnqueteDeletedHandler
         $this->flashBag = $requestStack->getSession()->getFlashBag();
     }
 
-    public function __invoke(EnqueteDeleted $enqueteDeleted)
+    public function __invoke(EnqueteDeleted $enqueteDeleted): void
     {
         $this->flashBag->add('success', 'L\'enquête a bien été supprimée');
     }

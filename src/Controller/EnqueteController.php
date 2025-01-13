@@ -21,8 +21,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class EnqueteController extends AbstractController
 {
     public function __construct(
-        private EnqueteRepository $enqueteRepository,
-        private MessageBusInterface $messageBus,
+        private readonly EnqueteRepository $enqueteRepository,
+        private readonly MessageBusInterface $messageBus,
     ) {}
 
     #[Route(path: '/', name: 'enquete_index', methods: ['GET'])]

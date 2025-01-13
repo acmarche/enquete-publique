@@ -17,8 +17,8 @@ class DocumentRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Document::class);
+        parent::__construct($managerRegistry, Document::class);
     }
 }

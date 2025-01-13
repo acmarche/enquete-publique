@@ -2,6 +2,7 @@
 
 namespace AcMarche\EnquetePublique\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use AcMarche\EnquetePublique\Repository\CategorieWpRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,12 +14,18 @@ class CategorieWp implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
-    #[ORM\Column(type: 'string')]
+
+    #[ORM\Column(type: Types::STRING)]
     private ?string $nom = null;
-    #[ORM\Column(type: 'integer')]
+
+    #[ORM\Column(type: Types::INTEGER)]
     public int $wpcatid;
+
+    /**
+     * @var Collection<int, Enquete>
+     */
     #[ORM\OneToMany(targetEntity: Enquete::class, mappedBy: 'categorie_wp', orphanRemoval: true)]
     private iterable $enquetes;
 

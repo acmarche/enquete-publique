@@ -4,7 +4,7 @@ namespace AcMarche\EnquetePublique\Enquete\Message;
 
 class EnqueteUpdated
 {
-    public function __construct(private int $enqueteId, private ?string $oldRue)
+    public function __construct(private readonly int $enqueteId, private readonly ?string $oldRue)
     {
     }
 

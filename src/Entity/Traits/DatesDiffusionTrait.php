@@ -2,15 +2,16 @@
 
 namespace AcMarche\EnquetePublique\Entity\Traits;
 
+use Doctrine\DBAL\Types\Types;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 trait DatesDiffusionTrait
 {
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private DateTimeInterface|null $date_debut;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private DateTimeInterface|null $date_fin;
 
     public function getDateDebut(): ?DateTimeInterface

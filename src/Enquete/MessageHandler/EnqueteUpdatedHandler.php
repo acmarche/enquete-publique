@@ -13,22 +13,22 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler()]
 class EnqueteUpdatedHandler
 {
-    private FlashBagInterface $flashBag;
+    private readonly FlashBagInterface $flashBag;
 
     public function __construct(
-        private EnqueteRepository $enqueteRepository,
-        private LocationUpdater $locationUpdater,
+        private readonly EnqueteRepository $enqueteRepository,
+        private readonly LocationUpdater $locationUpdater,
         RequestStack $requestStack
     ) {
         $this->flashBag = $requestStack->getSession()->getFlashBag();
     }
 
-    public function __invoke(EnqueteUpdated $enqueteCreated)
+    public function __invoke(EnqueteUpdated $enqueteUpdated): void
     {
         $this->flashBag->add('success', 'L\'enquête a bien été modifiée');
 
-        $enquete = $this->enqueteRepository->find($enqueteCreated->getEnqueteId());
-        $oldRue = $enqueteCreated->getOldRue();
+        $enquete = $this->enqueteRepository->find($enqueteUpdated->getEnqueteId());
+        $oldRue = $enqueteUpdated->getOldRue();
 
         if ($oldRue !== $enquete->getRue()) {
             try {

@@ -18,27 +18,27 @@ class EnqueteRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Enquete::class);
+        parent::__construct($managerRegistry, Enquete::class);
     }
 
     /**
      * @return array|Enquete[]
      */
-    public function findAllPublished()
+    public function findAllPublished(): array
     {
-        $qb = $this->createQueryBuilder('enquete')
+        $queryBuilder = $this->createQueryBuilder('enquete')
             ->leftJoin('enquete.documents', 'documents', 'WITH')
             ->leftJoin('enquete.categorie', 'categorie', 'WITH');
 
         $today = new DateTime();
 
-        $qb->andWhere('enquete.date_fin > :date AND enquete.date_debut <= :date ')
+        $queryBuilder->andWhere('enquete.date_fin > :date AND enquete.date_debut <= :date ')
             ->setParameter('date', $today->format('Y-m-d'));
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('enquete.date_debut', 'ASC')
                 ->getQuery()
                 ->getResult();
@@ -56,7 +56,10 @@ class EnqueteRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOrderByDate()
+    /**
+     * @return array|Enquete[]
+     */
+    public function findOrderByDate(): array
     {
         return
             $this->createQueryBuilder('enquete')

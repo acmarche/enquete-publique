@@ -10,23 +10,23 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class LocationUpdater
 {
-    public function __construct(private LocationInterface $location)
+    public function __construct(private readonly LocationInterface $location)
     {
     }
 
     /**
      * @throws Exception
      */
-    public function convertAddressToCoordinates(LocationAbleInterface $object): bool
+    public function convertAddressToCoordinates(LocationAbleInterface $locationAble): bool
     {
-        if (!$object->getRue()) {
+        if (!$locationAble->getRue()) {
             throw new Exception('Aucune rue encodée, pas de données de géolocalisation');
         }
 
         try {
-            $response = $this->location->search($this->getAdresseString($object));
+            $response = $this->location->search($this->getAdresseString($locationAble));
 
-            $tab = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+            $tab = json_decode((string) $response, true, 512, JSON_THROW_ON_ERROR);
 
             if (\is_array($tab) && 0 == \count($tab)) {
                 throw new Exception('L\'adresse n\'a pas pu être convertie en latitude longitude:'.$response);
@@ -37,7 +37,7 @@ class LocationUpdater
             }
 
             if (\is_array($tab) && [] !== $tab) {
-                $this->setLat($object, $tab);
+                $this->setLat($locationAble, $tab);
 
                 return true;
             } else {
@@ -48,17 +48,17 @@ class LocationUpdater
         }
     }
 
-    private function setLat(LocationAbleInterface $object, array $data): void
+    private function setLat(LocationAbleInterface $locationAble, array $data): void
     {
-        $object->setLatitude($data[0]['lat']);
-        $object->setLongitude($data[0]['lon']);
+        $locationAble->setLatitude($data[0]['lat']);
+        $locationAble->setLongitude($data[0]['lon']);
     }
 
-    private function getAdresseString(LocationAbleInterface $object): string
+    private function getAdresseString(LocationAbleInterface $locationAble): string
     {
-        return $object->getNumero().' '.
-            $object->getRue().', '.
-            $object->getCodePostal().' '.
-            $object->getLocalite();
+        return $locationAble->getNumero().' '.
+            $locationAble->getRue().', '.
+            $locationAble->getCodePostal().' '.
+            $locationAble->getLocalite();
     }
 }

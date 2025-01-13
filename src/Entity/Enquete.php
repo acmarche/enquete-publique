@@ -2,6 +2,8 @@
 
 namespace AcMarche\EnquetePublique\Entity;
 
+use Doctrine\DBAL\Types\Types;
+use DateTimeImmutable;
 use AcMarche\EnquetePublique\Entity\Traits\AvisFileTrait;
 use AcMarche\EnquetePublique\Entity\Traits\DatesDiffusionTrait;
 use AcMarche\EnquetePublique\Entity\Traits\LocationTrait;
@@ -27,19 +29,28 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
-    #[ORM\Column(type: 'string', nullable: false)]
+
+    #[ORM\Column(type: Types::STRING, nullable: false)]
     private ?string $intitule = null;
-    #[ORM\Column(type: 'string', nullable: false)]
+
+    #[ORM\Column(type: Types::STRING, nullable: false)]
     private ?string $demandeur = null;
+
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'enquetes')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
-    #[ORM\Column(type: 'text', nullable: true)]
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<int, Document>
+     */
     #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'enquete', cascade: ['persist', 'remove'])]
     private iterable $documents;
+
     #[ORM\ManyToOne(targetEntity: CategorieWp::class, inversedBy: 'enquetes')]
     #[ORM\JoinColumn(nullable: true)]
     public ?CategorieWp $categorie_wp = null;
@@ -48,8 +59,8 @@ class Enquete implements TimestampableInterface, LocationAbleInterface, Stringab
     {
         $this->documents = new ArrayCollection();
         $this->code_postal = 6900;
-        $this->date_debut = new \DateTimeImmutable();
-        $this->date_fin = new \DateTimeImmutable('+1 month');
+        $this->date_debut = new DateTimeImmutable();
+        $this->date_fin = new DateTimeImmutable('+1 month');
     }
 
     public function __toString(): string

@@ -13,15 +13,16 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class OpenStreetMapReverse implements LocationReverseInterface
 {
-    private string $baseUrl;
-    private HttpClientInterface $client;
+    private readonly string $baseUrl;
+
+    private readonly HttpClientInterface $httpClient;
 
     private array $result = [];
 
     public function __construct()
     {
         $this->baseUrl = 'https://nominatim.openstreetmap.org/reverse';
-        $this->client = HttpClient::create();
+        $this->httpClient = HttpClient::create();
     }
 
     /**
@@ -34,7 +35,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
     {
         sleep(1); //policy
         try {
-            $request = $this->client->request(
+            $request = $this->httpClient->request(
                 'GET',
                 $this->baseUrl,
                 [
@@ -50,11 +51,11 @@ class OpenStreetMapReverse implements LocationReverseInterface
                 ]
             );
 
-            $this->result = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $this->result = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             return $this->result;
-        } catch (ClientException $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        } catch (ClientException $clientException) {
+            throw new Exception($clientException->getMessage(), $clientException->getCode(), $clientException);
         }
     }
 
@@ -75,11 +76,7 @@ class OpenStreetMapReverse implements LocationReverseInterface
             return $address['pedestrian'];
         }
 
-        if (isset($address['industrial'])) {
-            return $address['industrial'];
-        }
-
-        return null;
+        return $address['industrial'] ?? null;
     }
 
     public function getLocality(): ?string
@@ -91,12 +88,9 @@ class OpenStreetMapReverse implements LocationReverseInterface
     {
         $address = $this->result['address'];
 
-        if (isset($address['house_number'])) {
-            return $address['house_number'];
-        }
-
-        return null;
+        return $address['house_number'] ?? null;
     }
+
     /*
      * {
      * "place_id":188259342,

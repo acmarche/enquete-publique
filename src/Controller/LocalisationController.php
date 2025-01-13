@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class LocalisationController extends AbstractController
 {
-    public function __construct(private EnqueteRepository $enqueteRepository)
+    public function __construct(private readonly EnqueteRepository $enqueteRepository)
     {
     }
 

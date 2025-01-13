@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[IsGranted('ROLE_ENQUETE_ADMIN')]
 class DocumentController extends AbstractController
 {
-    public function __construct(private DocumentRepository $documentRepository)
+    public function __construct(private readonly DocumentRepository $documentRepository)
     {
     }
 

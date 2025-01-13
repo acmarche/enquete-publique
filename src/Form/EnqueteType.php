@@ -15,9 +15,9 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class EnqueteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add('intitule')
             ->add(
                 'description',
@@ -93,9 +93,9 @@ class EnqueteType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'data_class' => Enquete::class,
             ]
