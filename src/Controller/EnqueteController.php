@@ -8,13 +8,13 @@ use AcMarche\EnquetePublique\Enquete\Message\EnqueteUpdated;
 use AcMarche\EnquetePublique\Entity\Enquete;
 use AcMarche\EnquetePublique\Form\EnqueteType;
 use AcMarche\EnquetePublique\Repository\EnqueteRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/enquete')]
 #[IsGranted('ROLE_ENQUETE_ADMIN')]
@@ -50,12 +50,15 @@ class EnqueteController extends AbstractController
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }
 
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
+
         return $this->render(
             '@EnquetePublique/enquete/new.html.twig',
             [
                 'enquete' => $enquete,
                 'form' => $form->createView(),
-            ],
+            ]
+            , $response,
         );
     }
 
@@ -83,12 +86,15 @@ class EnqueteController extends AbstractController
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
         }
 
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
+
         return $this->render(
             '@EnquetePublique/enquete/edit.html.twig',
             [
                 'enquete' => $enquete,
                 'form' => $form->createView(),
-            ],
+            ]
+            , $response,
         );
     }
 
