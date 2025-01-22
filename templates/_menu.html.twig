@@ -3,6 +3,15 @@
     </li>
     {% if is_granted('ROLE_ENQUETE_ADMIN') %}
         <li class="nav-item"><a href="{{ path('enquete_new') }}" class="nav-link">Ajouter</a></li>
-    <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link">{{ app.user }}</a></li>
+    {% endif %}
+    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="nav-item">
+            <a href="{{ path('app_login') }}" class="nav-link"><i class="ti ti-login"></i>
+                Se connecter</a>
+        </li>
+    {% else %}
+        <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link"><i class="ti ti-logout"></i>
+                Déconnexion</a>
+        </li>
     {% endif %}
 </ul>
