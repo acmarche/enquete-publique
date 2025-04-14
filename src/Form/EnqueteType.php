@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class EnqueteType extends AbstractType
@@ -18,7 +19,14 @@ class EnqueteType extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $formBuilder
-            ->add('intitule')
+            ->add('intitule', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'min' => 10,
+                        'max' => 250,
+                    ]),
+                ],
+            ])
             ->add(
                 'description',
                 TextareaType::class,
