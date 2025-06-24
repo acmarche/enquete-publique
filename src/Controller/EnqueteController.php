@@ -23,7 +23,8 @@ class EnqueteController extends AbstractController
     public function __construct(
         private readonly EnqueteRepository $enqueteRepository,
         private readonly MessageBusInterface $messageBus,
-    ) {}
+    ) {
+    }
 
     #[Route(path: '/', name: 'enquete_index', methods: ['GET'])]
     public function index(): Response
@@ -48,6 +49,8 @@ class EnqueteController extends AbstractController
             $this->messageBus->dispatch(new EnqueteCreated($enquete->getId()));
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
+        } else {
+
         }
 
         $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
@@ -84,6 +87,10 @@ class EnqueteController extends AbstractController
             $this->messageBus->dispatch(new EnqueteUpdated($enquete->getId(), $oldRue));
 
             return $this->redirectToRoute('enquete_show', ['id' => $enquete->getId()]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors() as $error) {
+                $this->addFlash('danger', $error->getMessage());
+            }
         }
 
         $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
